@@ -2,11 +2,17 @@ public class Main {
     public static void main(String[] args) {
 
 
-        GameCharacter dude = new GameCharacter("dude",100);
-        GameCharacter ghoul = new GameCharacter("Ghoul",75);
+        Weapon vapen = new Weapon("sword",40);
+        GameCharacter dude = new Player("dude",100);
+        GameCharacter ghoul = new Npc("Ghoul",75);
+        dude.setEquippedWeapon(vapen);
+        System.out.println(dude.getEquippedWeapon());
+        System.out.println(ghoul.getHitPoints());
+        dude.attack(ghoul);
+        System.out.println(ghoul.hitPoints);
 
+        System.exit(0);
         System.out.println("A scary-looking Ghoul runs towards you. You decide to attack.");
-
         while (true){
 
             ghoul.takeDamage(20);
