@@ -1,13 +1,17 @@
+import java.util.Random;
+
 abstract public class GameCharacter {
 
-    String name;
-    int hitPoints,damage;
-    Weapon equippedWeapon;
+    private String name;
+    private int hitPoints,damage;
+    private Weapon equippedWeapon;
+    public Double dexterity;
 
     public GameCharacter(String name, int hitPoints, Weapon equippedWeapon) {
         this.name = name;
         this.hitPoints = hitPoints;
         this.equippedWeapon = equippedWeapon;
+        this.dexterity = 0.0;
     }
 
     public String getName(){
@@ -31,7 +35,10 @@ abstract public class GameCharacter {
         this.equippedWeapon = equippedWeapon;
     }
 
+    Random random = new Random();
     public void attack(GameCharacter defender){
-        defender.hitPoints -= equippedWeapon.damage;
+        double rand = random.nextDouble(dexterity, 1.0);
+        defender.hitPoints -= (int) (equippedWeapon.damage * rand);
+
     }
 }
