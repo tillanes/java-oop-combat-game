@@ -6,6 +6,13 @@ class MainTest {
 
     @Test
     void testMain() {
+
+        Weapon m4 = new Weapon("M4",20);
+
+        assertEquals("M4", m4.getName());
+
+
+
         /*
         assertTrue(true);
 
