@@ -1,20 +1,14 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MainTest {
+public class WeaponsTest {
 
     @Test
-    void testMain() {
-
+    void testWeapons() {
         Weapon m4 = new Weapon("M4",20);
 
         assertEquals("M4", m4.getName());
 
-
-
-
     }
-
-
 }

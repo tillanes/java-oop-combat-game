@@ -39,7 +39,12 @@ public class Main {
                 }
 
 
-                attacker.attack(defender);
+                int damage = attacker.attack(defender);
+
+
+                System.out.println(attacker.getName() + " hits " + defender.getName() +
+                        " with a " + attacker.getEquippedWeapon() +
+                        " for " + damage + " HP");
 
 
                 if (defender.getHitPoints() <= 0) {

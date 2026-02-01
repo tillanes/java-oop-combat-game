@@ -36,9 +36,10 @@ abstract public class GameCharacter {
     }
 
     Random random = new Random();
-    public void attack(GameCharacter defender){
+    public int attack(GameCharacter defender){
         double rand = random.nextDouble(dexterity, 1.0);
-        defender.hitPoints -= (int) (equippedWeapon.damage * rand);
-
+        int dmg = (int) (equippedWeapon.damage * rand);
+        defender.hitPoints -= dmg;
+        return dmg;
     }
 }
