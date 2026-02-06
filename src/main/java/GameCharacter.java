@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 abstract public class GameCharacter {
 
@@ -16,6 +17,10 @@ abstract public class GameCharacter {
 
     public String getName(){
         return name;
+    }
+
+    private void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
     }
 
     public int getHitPoints(){
@@ -42,4 +47,29 @@ abstract public class GameCharacter {
         defender.hitPoints -= dmg;
         return dmg;
     }
+
+    Scanner scanner = new Scanner(System.in);
+    public int heal(){
+        int rand = random.nextInt(1,5);
+        //System.out.println("random number"+rand);
+        int x = scanner.nextInt();
+
+        if (x == rand){
+                int currentHealth = getHitPoints();
+                int randValue = random.nextInt(50,101);
+                currentHealth += randValue;
+
+                if(currentHealth > 100) currentHealth = 100;
+                setHitPoints(currentHealth);
+                return 0;
+        }
+        else
+        {
+            return 1;
+
+        }
+    }
+
+
+
 }

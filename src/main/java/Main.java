@@ -3,8 +3,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Weapon m4 = new Weapon("M4",20);
-        GameCharacter soldier = new Player("Soldier",100,m4);
+        Weapon m4 = new Weapon("M4",100);
+        GameCharacter soldier = new Player("Soldier",5,m4);
+
+
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("enter your name: ");
@@ -17,8 +19,22 @@ public class Main {
 
         while (true) {
 
-            GameCharacter vietkong = new Npc("Vietkong", 50);
+            if (killcount % 4 == 0 && killcount != 0){
+                System.out.println("You have the chance to be healed with morphine.");
+                System.out.println("Guess a number between 1-4");
+                int res = soldier.heal();
+                if (res ==1) {
+                    System.out.println("You guessed wrong");
+                }else{
+                    System.out.println("YOU GUESSED RIGHT!!!");
+                    System.out.println("Your health is now: "+soldier.getHitPoints());
+                }
+            }
+
+            GameCharacter vietkong = Npc.spawnNpc();
             String enemyName = (vietkong.getName());
+
+
             System.out.println("A "+enemyName+" SPOTTED YOU");
             System.out.println(enemyName+" is armed with: " + vietkong.getEquippedWeapon());
 
