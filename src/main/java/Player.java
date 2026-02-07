@@ -1,4 +1,6 @@
-public class Player extends GameCharacter{
+import java.io.Serializable;
+
+public class Player  extends GameCharacter implements Serializable {
 
 
 

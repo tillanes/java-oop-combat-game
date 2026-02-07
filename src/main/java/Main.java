@@ -1,9 +1,11 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
 
         Weapon m4 = new Weapon("M4",50);
 
@@ -13,12 +15,28 @@ public class Main {
 
         soldier.setWeapons(knife);
 
-
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your name: ");
-        String name = scanner.nextLine();
+        boolean hasSave = new File("saves/Player.ser").exists();
+        if (hasSave) {
+            System.out.println("Press h to use previous save. n for no.");
+            String wantSave = scanner.nextLine();
 
-        System.out.println(name + "'s HELICOPTER GOT SHOT DOWN IN VIETNAM");
+            if (wantSave.equalsIgnoreCase("h")) {
+                soldier = Save.load();
+                soldier.setHitPoints(80);
+            } else {
+                System.out.println("Enter your name: ");
+                String name = scanner.nextLine();
+                soldier.setName(name);
+            }
+
+        } else {
+            System.out.println("Enter your name: ");
+            String name = scanner.nextLine();
+            soldier.setName(name);
+        }
+
+        System.out.println(soldier.getName() + "'s HELICOPTER GOT SHOT DOWN IN VIETNAM");
         System.out.println("You are armed with a: " + soldier.getEquippedWeapon());
 
         int killcount = 0;
@@ -112,6 +130,13 @@ public class Main {
             String choice = scanner.nextLine();
 
             if (!choice.equalsIgnoreCase("y")) {
+                System.out.println("Press H to save you name and weapons for you next life.");
+                String saveMaybe = scanner.nextLine();
+                if(saveMaybe.equalsIgnoreCase("h")){
+                    Save.save(soldier);
+                }
+
+
                 System.out.println("USA wins!");
                 System.out.println("Final kill count: " + killcount);
                 break;

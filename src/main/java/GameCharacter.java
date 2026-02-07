@@ -1,8 +1,10 @@
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-abstract public class GameCharacter {
+abstract public class GameCharacter implements Serializable {
 
     private String name;
     private int hitPoints,damage;
@@ -19,11 +21,15 @@ abstract public class GameCharacter {
         this.weapons.add(equippedWeapon);
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName(){
         return name;
     }
 
-    private void setHitPoints(int hitPoints) {
+    public void setHitPoints(int hitPoints) {
         this.hitPoints = hitPoints;
     }
 
@@ -53,7 +59,7 @@ abstract public class GameCharacter {
         return dmg;
     }
 
-    Scanner scanner = new Scanner(System.in);
+    transient Scanner scanner = new Scanner(System.in);
     public int heal(){
         int rand = random.nextInt(1,5);
         //System.out.println("random number"+rand);
