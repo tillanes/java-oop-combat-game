@@ -9,21 +9,13 @@ public class Weapon implements Serializable {
         this.damage = damage;
     }
 
-     int getDamage() {
-        return damage;
-    }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public String toString() {

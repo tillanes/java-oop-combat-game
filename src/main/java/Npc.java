@@ -8,7 +8,8 @@ public class Npc extends GameCharacter{
             "Trench Defender","bamboo trap master","Village Defender"};
 
     private String enemyType;
-    private static Weapon chosenGun;
+
+
 
     private Npc(String name, int hitPoints, Weapon weapon, String enemyType) {
         super(name, hitPoints, weapon);

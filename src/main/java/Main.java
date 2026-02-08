@@ -1,17 +1,16 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
 
-        Weapon m4 = new Weapon("M4",50);
+        Weapon m4 = new Weapon("M4",30);
 
         Weapon knife = new Weapon("knife",10);
 
-        GameCharacter soldier = new Player("Soldier",80,m4);
+        GameCharacter soldier = new Player("Soldier",100,m4);
 
         soldier.setWeapons(knife);
 
@@ -23,7 +22,7 @@ public class Main {
 
             if (wantSave.equalsIgnoreCase("h")) {
                 soldier = Save.load();
-                soldier.setHitPoints(80);
+                soldier.setHitPoints(100);
             } else {
                 System.out.println("Enter your name: ");
                 String name = scanner.nextLine();
@@ -43,14 +42,15 @@ public class Main {
         Weapon vapen = null;
         while (true) {
 
-            if (killcount % 4 == 0 && killcount != 0) {
-                System.out.println("You have the chance to be healed with morphine.");
+            if (killcount % 3 == 0 && killcount != 0) {
+                System.out.println("A field medic found you. You have the chance to be healed with morphine.");
                 System.out.println("Guess a number between 1-4");
+
                 int res = soldier.heal();
-                if (res == 1) {
-                    System.out.println("You guessed wrong.");
-                } else {
+                if (res == 0) {
                     System.out.println("YOU GUESSED RIGHT!!! Your health is now: " + soldier.getHitPoints());
+                } else {
+                    System.out.println("you guessed wrong the number was: "+res);
                 }
             }
 
@@ -70,15 +70,39 @@ public class Main {
 
                 if (attacker == soldier) {
                     System.out.println(soldier.getWeapons());
-                    System.out.print("Choose weapon to attack with. Enter 99 to surrender: ");
 
-                    int choice = scanner.nextInt();
+
+                    int invSize = soldier.getInventorySize();
+                    int choice;
+                    while (true) {
+                        System.out.print("Choose weapon to attack with (1-" + invSize + "). Enter 99 to surrender: ");
+
+                        while (true){
+                            try {
+                                choice = scanner.nextInt();
+                                break;
+                            } catch (InputMismatchException e) {
+
+                            }
+                                System.out.println("Please enter a valid integer.");
+                                System.out.print("Choose weapon to attack with (1-" + invSize + "). Enter 99 to surrender: ");
+                                scanner.next();
+                            }
+                        if (choice == 99) {
+                            System.out.println("You surrendered.");
+                            System.exit(0);
+                        }
+
+                        if (choice >= 1 && choice <= invSize) {
+                            break;
+                        }
+
+                        System.out.println("Invalid choice. Try again.");
+                    }
                     scanner.nextLine();
 
-                    if (choice == 99) {
-                        System.out.println("You surrendered.");
-                        System.exit(0);
-                    }
+
+
 
                     Weapon weapon = soldier.chooseGun(choice);
                     vapen = weapon;

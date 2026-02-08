@@ -1,6 +1,6 @@
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -37,18 +37,12 @@ abstract public class GameCharacter implements Serializable {
         return hitPoints;
     }
 
-    public void takeDamage(int Damage){
-        this.hitPoints -= Damage;
-
-    }
 
     public String getEquippedWeapon() {
         return equippedWeapon.name;
     }
 
-    public void setEquippedWeapon(Weapon equippedWeapon) {
-        this.equippedWeapon = equippedWeapon;
-    }
+
 
     Random random = new Random();
     public int attack(GameCharacter defender,Weapon weapon){
@@ -61,11 +55,26 @@ abstract public class GameCharacter implements Serializable {
 
     transient Scanner scanner = new Scanner(System.in);
     public int heal(){
+        if (scanner == null) {
+            scanner = new Scanner(System.in);
+        }
+
         int rand = random.nextInt(1,5);
         //System.out.println("random number"+rand);
-        int x = scanner.nextInt();
 
+        int x;
+        while(true) {
+            try {
+                x = scanner.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid integer.");
+                System.out.println("Guess a number between 1-4");
+                scanner.next();
+            }
+        }
         if (x == rand){
+
                 int currentHealth = getHitPoints();
                 int randValue = random.nextInt(50,101);
                 currentHealth += randValue;
@@ -76,7 +85,7 @@ abstract public class GameCharacter implements Serializable {
         }
         else
         {
-            return 1;
+            return rand;
 
         }
     }
@@ -97,6 +106,10 @@ abstract public class GameCharacter implements Serializable {
                     .append(" (").append(weapons.get(i).damage).append(")\n");
         }
         return sb.toString();
+    }
+
+    public int getInventorySize() {
+        return weapons.size();
     }
 
     public Weapon chooseGun(int choice) {
